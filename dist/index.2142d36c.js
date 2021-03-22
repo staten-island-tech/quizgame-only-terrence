@@ -445,30 +445,93 @@ id) /*: string*/
 // Array for questions and answers
 const questions = [
   {
-    question: "1. When was Minecraft released?",
+    question: "1. When was Pong first released?",
     answer: [
-      { text: "2009", correct: "true" },
-      { text: "2010", correct: "false" },
-      { text: "2011", correct: "false" },
-      { text: "2012", correct: "false" },
+      { text: "1958", correct: "false" },
+      { text: "1967", correct: "false" },
+      { text: "1972", correct: "true" },
+      { text: "1978", correct: "false" },
     ],
   },
   {
-    question: "2. When was League of Legends released?",
+    question: "2. What is the best-selling video of all time",
     answer: [
-      { text: "2010", correct: "true" },
-      { text: "2011", correct: "false" },
-      { text: "2012", correct: "false" },
-      { text: "2013", correct: "false" },
+      { text: "GTA V", correct: "true" },
+      { text: "Minecraft", correct: "false" },
+      { text: "Tetris", correct: "false" },
+      { text: "Terraria", correct: "false" },
     ],
   },
   {
-    question: "3. When was GTA V released?",
+    question: "3. Filler",
     answer: [
-      { text: "2013", correct: "true" },
-      { text: "2014", correct: "false" },
-      { text: "2015", correct: "false" },
-      { text: "2016", correct: "false" },
+      { text: "Filler", correct: "true" },
+      { text: "Filler", correct: "false" },
+      { text: "Filler", correct: "false" },
+      { text: "Filler", correct: "false" },
+    ],
+  },
+  {
+    question: "4. Filler",
+    answer: [
+      { text: "Filler", correct: "true" },
+      { text: "Filler", correct: "false" },
+      { text: "Filler", correct: "false" },
+      { text: "Filler", correct: "false" },
+    ],
+  },
+  {
+    question: "5. Filler",
+    answer: [
+      { text: "Filler", correct: "true" },
+      { text: "Filler", correct: "false" },
+      { text: "Filler", correct: "false" },
+      { text: "Filler", correct: "false" },
+    ],
+  },
+  {
+    question: "6. Filler",
+    answer: [
+      { text: "Filler", correct: "true" },
+      { text: "Filler", correct: "false" },
+      { text: "Filler", correct: "false" },
+      { text: "Filler", correct: "false" },
+    ],
+  },
+  {
+    question: "7. Filler",
+    answer: [
+      { text: "Filler", correct: "true" },
+      { text: "Filler", correct: "false" },
+      { text: "Filler", correct: "false" },
+      { text: "Filler", correct: "false" },
+    ],
+  },
+  {
+    question: "8. Filler",
+    answer: [
+      { text: "Filler", correct: "true" },
+      { text: "Filler", correct: "false" },
+      { text: "Filler", correct: "false" },
+      { text: "Filler", correct: "false" },
+    ],
+  },
+  {
+    question: "9. Filler",
+    answer: [
+      { text: "Filler", correct: "true" },
+      { text: "Filler", correct: "false" },
+      { text: "Filler", correct: "false" },
+      { text: "Filler", correct: "false" },
+    ],
+  },
+  {
+    question: "10. Filler",
+    answer: [
+      { text: "Filler", correct: "true" },
+      { text: "Filler", correct: "false" },
+      { text: "Filler", correct: "false" },
+      { text: "Filler", correct: "false" },
     ],
   },
 ];
@@ -488,46 +551,72 @@ const answerElement4 = document.getElementById("ans4");
 let currentIndex = 0;
 
 function start() {
-  // changes screens by swapping divs
+  // Changes screens by swapping divs
   document.getElementById("intropage").style.zIndex = "1";
   document.getElementById("template").style.zIndex = "2";
-  // Starts replacing templates for when index is less than 2
-  if (currentIndex < 2) {
+}
+function load() {
+  // Starts replacing templates for when index is less than 9
+  if (currentIndex <= 9) {
     questionElement.innerHTML = questions[currentIndex]["question"];
     answerElement1.innerHTML = questions[currentIndex]["answer"][0]["text"];
     answerElement2.innerHTML = questions[currentIndex]["answer"][1]["text"];
     answerElement3.innerHTML = questions[currentIndex]["answer"][2]["text"];
     answerElement4.innerHTML = questions[currentIndex]["answer"][3]["text"];
-  } else {
-    // When it recognizes it's at the final index, changes "Next" button to "Submit" button
-    if (currentIndex === 2) {
-      questionElement.innerHTML = questions[currentIndex]["question"];
-      answerElement1.innerHTML = questions[currentIndex]["answer"][0]["text"];
-      answerElement2.innerHTML = questions[currentIndex]["answer"][1]["text"];
-      answerElement3.innerHTML = questions[currentIndex]["answer"][2]["text"];
-      answerElement4.innerHTML = questions[currentIndex]["answer"][3]["text"];
-      nextbtn.innerHTML = "Submit";
-    }
   }
 }
-// Makes start button look for clicks and starts function if clicked
-startbtn.addEventListener("click", start);
+startbtn.addEventListener("click", () => {
+  start();
+  load();
+});
 
-function resultsPage() {
-  // When it's at final page the button will change and prompt this
-  if (nextbtn.innerHTML === "Submit") {
+// Since it's not a final page yet, pressing next button will keep increasing index until it gets to max allowed index, which is 10, where it will trigger submit() since it is > 9
+function nextPage() {
+  if (currentIndex < 10) {
+    currentIndex++;
+    load();
+  }
+}
+// If it is at final page, represented by index of 9 change HTML of next button to Submit
+function submitBtn() {
+  if (currentIndex === 9) {
+    nextbtn.innerHTML = "Submit";
+  }
+}
+// Only if the index of above 9, which is final page, change screens to results page
+function submit() {
+  if (currentIndex > 9) {
     document.getElementById("template").style.zIndex = "1";
     document.getElementById("results").style.zIndex = "2";
-  } else {
-    // Since it's not a final page yet, pressing next button will keep increasing index until it gets to final page and invoke if
-    if (currentIndex <= 2) {
-      currentIndex++;
-      start();
-    }
   }
 }
-// Makes next button look for clicks and starts function if clicked
-nextbtn.addEventListener("click", resultsPage);
+nextbtn.addEventListener("click", () => {
+  nextPage();
+  submitBtn();
+  submit();
+});
+
+function goBack() {
+  // If index is not equal to 0:
+  if (currentIndex != 0) {
+    // Minus 1 from index
+    --currentIndex;
+    load();
+    // Change next button back to next if it turned to submit
+    nextbtn.innerHTML = "Next";
+  }
+}
+function backToIntro() {
+  if (currentIndex === 0) {
+    document.getElementById("intropage").style.zIndex = "1";
+    document.getElementById("template").style.zIndex = "2";
+    window.location.reload();
+  }
+}
+prevbtn.addEventListener("click", () => {
+  goBack();
+  backToIntro();
+});
 
 },{}]},["21c8X","3L8AI"], "3L8AI", "parcelRequire5a55")
 
