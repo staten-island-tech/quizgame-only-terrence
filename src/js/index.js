@@ -1,3 +1,34 @@
+/*
+function goBack() {
+  // If index is not equal to 0:
+  if (currentIndex != 0) {
+    // Minus 1 from index
+    --currentIndex;
+    load();
+    // Change next button back to next if it turned to submit
+    nextbtn.innerHTML = "Next";
+  }
+}
+prevbtn.addEventListener("click", () => {
+  goBack();
+  goodLooks();
+});
+// If index = 0, don't display previous button
+function goodLooks() {
+  if (currentIndex === 0) {
+    prevbtn.style.display = "none";
+  }
+}
+goodLooks();
+function nextPage() {
+  if (currentIndex < 10) {
+    currentIndex++;
+    load();
+    prevbtn.style.display = "inline-block";
+  }
+}
+*/
+
 // Array for questions and answers
 const questions = [
   {
@@ -153,32 +184,3 @@ nextbtn.addEventListener("click", () => {
   resultsBtn();
   submit();
 });
-
-function goBack() {
-  // If index is not equal to 0:
-  if (currentIndex != 0) {
-    // Minus 1 from index
-    --currentIndex;
-    load();
-    // Change next button back to next if it turned to submit
-    nextbtn.innerHTML = "Next";
-  }
-}
-prevbtn.addEventListener("click", () => {
-  goBack();
-  goodLooks();
-});
-// If index = 0, don't display previous button
-function goodLooks() {
-  if (currentIndex === 0) {
-    prevbtn.style.display = "none";
-  }
-}
-goodLooks();
-function nextPage() {
-  if (currentIndex < 10) {
-    currentIndex++;
-    load();
-    prevbtn.style.display = "inline-block";
-  }
-}
