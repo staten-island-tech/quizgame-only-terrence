@@ -3,91 +3,91 @@ const questions = [
   {
     question: "1. When was Pong first released?",
     answer: [
-      { text: "1958", correct: "false" },
-      { text: "1967", correct: "false" },
-      { text: "1972", correct: "true" },
-      { text: "1978", correct: "false" },
+      { text: "1958", correct: false },
+      { text: "1967", correct: false },
+      { text: "1972", correct: true },
+      { text: "1978", correct: false },
     ],
   },
   {
-    question: "2. What is the best-selling video of all time",
+    question: "2. What is the best-selling video of all time?",
     answer: [
-      { text: "GTA V", correct: "true" },
-      { text: "Minecraft", correct: "false" },
-      { text: "Tetris", correct: "false" },
-      { text: "Terraria", correct: "false" },
+      { text: "GTA V", correct: true },
+      { text: "Minecraft", correct: false },
+      { text: "Tetris", correct: false },
+      { text: "Terraria", correct: false },
     ],
   },
   {
     question: "3. Filler",
     answer: [
-      { text: "Filler", correct: "true" },
-      { text: "Filler", correct: "false" },
-      { text: "Filler", correct: "false" },
-      { text: "Filler", correct: "false" },
+      { text: "Filler", correct: false },
+      { text: "Filler", correct: false },
+      { text: "Filler", correct: false },
+      { text: "Filler", correct: false },
     ],
   },
   {
     question: "4. Filler",
     answer: [
-      { text: "Filler", correct: "true" },
-      { text: "Filler", correct: "false" },
-      { text: "Filler", correct: "false" },
-      { text: "Filler", correct: "false" },
+      { text: "Filler", correct: true },
+      { text: "Filler", correct: false },
+      { text: "Filler", correct: false },
+      { text: "Filler", correct: false },
     ],
   },
   {
     question: "5. Filler",
     answer: [
-      { text: "Filler", correct: "true" },
-      { text: "Filler", correct: "false" },
-      { text: "Filler", correct: "false" },
-      { text: "Filler", correct: "false" },
+      { text: "Filler", correct: true },
+      { text: "Filler", correct: false },
+      { text: "Filler", correct: false },
+      { text: "Filler", correct: false },
     ],
   },
   {
     question: "6. Filler",
     answer: [
-      { text: "Filler", correct: "true" },
-      { text: "Filler", correct: "false" },
-      { text: "Filler", correct: "false" },
-      { text: "Filler", correct: "false" },
+      { text: "Filler", correct: true },
+      { text: "Filler", correct: false },
+      { text: "Filler", correct: false },
+      { text: "Filler", correct: false },
     ],
   },
   {
     question: "7. Filler",
     answer: [
-      { text: "Filler", correct: "true" },
-      { text: "Filler", correct: "false" },
-      { text: "Filler", correct: "false" },
-      { text: "Filler", correct: "false" },
+      { text: "Filler", correct: true },
+      { text: "Filler", correct: false },
+      { text: "Filler", correct: false },
+      { text: "Filler", correct: false },
     ],
   },
   {
     question: "8. Filler",
     answer: [
-      { text: "Filler", correct: "true" },
-      { text: "Filler", correct: "false" },
-      { text: "Filler", correct: "false" },
-      { text: "Filler", correct: "false" },
+      { text: "Filler", correct: true },
+      { text: "Filler", correct: false },
+      { text: "Filler", correct: false },
+      { text: "Filler", correct: false },
     ],
   },
   {
     question: "9. Filler",
     answer: [
-      { text: "Filler", correct: "true" },
-      { text: "Filler", correct: "false" },
-      { text: "Filler", correct: "false" },
-      { text: "Filler", correct: "false" },
+      { text: "Filler", correct: true },
+      { text: "Filler", correct: false },
+      { text: "Filler", correct: false },
+      { text: "Filler", correct: false },
     ],
   },
   {
     question: "10. Filler",
     answer: [
-      { text: "Filler", correct: "true" },
-      { text: "Filler", correct: "false" },
-      { text: "Filler", correct: "false" },
-      { text: "Filler", correct: "false" },
+      { text: "Filler", correct: true },
+      { text: "Filler", correct: false },
+      { text: "Filler", correct: false },
+      { text: "Filler", correct: false },
     ],
   },
 ];
@@ -105,6 +105,8 @@ const answerElement3 = document.getElementById("ans3");
 const answerElement4 = document.getElementById("ans4");
 // Sets variable for first set
 let currentIndex = 0;
+// Sets initial score
+let initialScore = 0;
 
 function start() {
   // Changes screens by swapping divs
@@ -126,7 +128,7 @@ startbtn.addEventListener("click", () => {
   load();
 });
 
-// Since it's not a final page yet, pressing next button will keep increasing index until it gets to max allowed index, which is 10, where it will trigger submit() since it is > 9
+// Since it's not a final page yet, pressing next button will keep increasing index until it gets to max allowed index, which is 10, where it will trigger results() since it is > 9
 function nextPage() {
   if (currentIndex < 10) {
     currentIndex++;
@@ -134,9 +136,9 @@ function nextPage() {
   }
 }
 // If it is at final page, represented by index of 9 change HTML of next button to Submit
-function submitBtn() {
+function resultsBtn() {
   if (currentIndex === 9) {
-    nextbtn.innerHTML = "Submit";
+    nextbtn.innerHTML = "Results";
   }
 }
 // Only if the index of above 9, which is final page, change screens to results page
@@ -148,7 +150,7 @@ function submit() {
 }
 nextbtn.addEventListener("click", () => {
   nextPage();
-  submitBtn();
+  resultsBtn();
   submit();
 });
 
@@ -162,14 +164,21 @@ function goBack() {
     nextbtn.innerHTML = "Next";
   }
 }
-function backToIntro() {
-  if (currentIndex === 0) {
-    document.getElementById("intropage").style.zIndex = "1";
-    document.getElementById("template").style.zIndex = "2";
-    window.location.reload();
-  }
-}
 prevbtn.addEventListener("click", () => {
   goBack();
-  backToIntro();
+  goodLooks();
 });
+// If index = 0, don't display previous button
+function goodLooks() {
+  if (currentIndex === 0) {
+    prevbtn.style.display = "none";
+  }
+}
+goodLooks();
+function nextPage() {
+  if (currentIndex < 10) {
+    currentIndex++;
+    load();
+    prevbtn.style.display = "inline-block";
+  }
+}

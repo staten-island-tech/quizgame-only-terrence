@@ -85,7 +85,7 @@
   flex-direction: column;
 }
 
-.place {
+.question {
   border: 1px solid black;
 }
 
@@ -98,13 +98,20 @@
   padding: 25px;
 }
 
-.answer-temp {
+#ans1,
+#ans2,
+#ans3,
+#ans4 {
   font-size: 3.5rem;
   padding: 0 25px 0 25px;
   font-size: 5rem;
   display: flex;
   align-items: center;
   float: left;
+}
+
+.active {
+  background: pink;
 }
 
 .btndiv {
