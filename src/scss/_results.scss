@@ -3,9 +3,42 @@
   width: 100vw;
   height: 100vh;
   max-width: 100%;
-  background: pink;
-  display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1;
+  display: none;
+  z-index: 0;
+}
+
+.resultsbox {
+  width: 80%;
+  height: 80%;
+  background: pink;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+#name,
+#text,
+#restart {
+  width: 80%;
+}
+
+#name {
+  height: 10%;
+  font-size: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#text {
+  height: 50%;
+  padding-bottom: 5rem;
+  font-size: 3rem;
+}
+#restart {
+  width: 60%;
+  height: 10%;
+  font-size: 5rem;
 }

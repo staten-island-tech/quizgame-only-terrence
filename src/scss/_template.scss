@@ -4,10 +4,10 @@
   height: 100vh;
   max-width: 100%;
   background: #fff;
-  display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 2;
+  display: none;
+  z-index: 0;
 }
 
 .box {
@@ -49,12 +49,8 @@
   float: left;
 }
 
-.correct {
-  background: green;
-}
-
-.wrong {
-  background: red;
+.active {
+  background: blue;
 }
 
 .btndiv {
@@ -65,11 +61,17 @@
 }
 
 #prevbtn,
-#nextbtn {
+#nextbtn,
+#submitbtn {
   padding: 1rem;
   font-size: 4rem;
 }
 
-#nextbtn {
+#nextbtn,
+#submitbtn {
   float: right;
+}
+
+#submitbtn {
+  display: none;
 }

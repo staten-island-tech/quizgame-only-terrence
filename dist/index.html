@@ -16,20 +16,35 @@
             <div class="box">
                 <div class="questionbox">
                     <span class="question" id="question-temp"></span>
-                    <button type="button" id="ans1"></button>
-                    <button type="button" id="ans2"></button>
-                    <button type="button" id="ans3"></button>
-                    <button type="button" id="ans4"></button>
+                    <button type="button" name="answer" onclick="selected(this)" id="ans1"></button>
+                    <button type="button" name="answer" onclick="selected(this)" id="ans2"></button>
+                    <button type="button" name="answer" onclick="selected(this)" id="ans3"></button>
+                    <button type="button" name="answer" onclick="selected(this)" id="ans4"></button>
                 </div>
                 <div class="btndiv">
-                    <!-- <button id="prevbtn">Back</button> -->
+                    <button id="prevbtn">Back</button>
                     <button id="nextbtn">Next</button>
+                    <button id="submitbtn">Submit</button>
+                </div>
+            </div>
+            <div id="overlay">
+                <div id="confirmation">
+                    <span id="prompt"></span>
+                    <div class="btndiv2">
+                        <button id="no">No</button>
+                        <button id="yes">Yes</button>
+                    </div>
                 </div>
             </div>
         </div>
-        <div id="results"></div>
+        <div id="results">
+            <div class="resultsbox">
+                <span id="name"></span>
+                <p id="text"></p>
+                <button id="restart">Restart</button>
+            </div>
+        </div>
     </header>
-    
     <script src="/index.2142d36c.js"></script>
 </body>
 </html>

@@ -1,0 +1,35 @@
+#confirmation {
+  position: absolute;
+  width: 40vw;
+  height: 40vh;
+  background: #fff;
+  display: none;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+  z-index: 0;
+}
+
+#prompt {
+  width: 80%;
+  height: 40%;
+  font-size: 2.5rem;
+}
+
+.btndiv2 {
+  width: 80%;
+  height: 20%;
+  justify-self: center;
+}
+
+#yes,
+#no {
+  padding: 1rem;
+  font-size: 2rem;
+  width: 30%;
+  height: auto;
+}
+
+#yes {
+  float: right;
+}

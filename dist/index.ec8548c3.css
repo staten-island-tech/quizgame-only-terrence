@@ -11,7 +11,7 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  z-index: 3;
+  z-index: 0;
 }
 
 .title {
@@ -52,10 +52,10 @@
   height: 100vh;
   width: 100vw;
   max-width: 100%;
-  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  display: flex;
   z-index: 0;
 }
 
@@ -65,10 +65,10 @@
   height: 100vh;
   max-width: 100%;
   background: #fff;
-  display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 2;
+  display: none;
+  z-index: 0;
 }
 
 .box {
@@ -111,7 +111,7 @@
 }
 
 .active {
-  background: pink;
+  background: blue;
 }
 
 .btndiv {
@@ -122,13 +122,19 @@
 }
 
 #prevbtn,
-#nextbtn {
+#nextbtn,
+#submitbtn {
   padding: 1rem;
   font-size: 4rem;
 }
 
-#nextbtn {
+#nextbtn,
+#submitbtn {
   float: right;
+}
+
+#submitbtn {
+  display: none;
 }
 
 #results {
@@ -136,11 +142,95 @@
   width: 100vw;
   height: 100vh;
   max-width: 100%;
-  background: pink;
-  display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1;
+  display: none;
+  z-index: 0;
+}
+
+.resultsbox {
+  width: 80%;
+  height: 80%;
+  background: pink;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+#name,
+#text,
+#restart {
+  width: 80%;
+}
+
+#name {
+  height: 10%;
+  font-size: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#text {
+  height: 50%;
+  padding-bottom: 5rem;
+  font-size: 3rem;
+}
+
+#restart {
+  width: 60%;
+  height: 10%;
+  font-size: 5rem;
+}
+
+#confirmation {
+  position: absolute;
+  width: 40vw;
+  height: 40vh;
+  background: #fff;
+  display: none;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+  z-index: 0;
+}
+
+#prompt {
+  width: 80%;
+  height: 40%;
+  font-size: 2.5rem;
+}
+
+.btndiv2 {
+  width: 80%;
+  height: 20%;
+  justify-self: center;
+}
+
+#yes,
+#no {
+  padding: 1rem;
+  font-size: 2rem;
+  width: 30%;
+  height: auto;
+}
+
+#yes {
+  float: right;
+}
+
+#overlay {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background: transparent;
+  max-width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  z-index: -1;
 }
 
 html,
