@@ -443,42 +443,42 @@ id) /*: string*/
 
 },{}],"3L8AI":[function(require,module,exports) {
 var _Dom = require("./Dom");
-var _functions = require("./functions");
+var _Functions = require("./Functions");
 // IIFE that runs game
 (() => {
   _Dom.DOMSelectors.startButton.addEventListener("click", () => {
-    _functions.start();
-    _functions.load();
+    _Functions.start();
+    _Functions.load();
   });
   _Dom.DOMSelectors.nextButton.addEventListener("click", () => {
     // First increments currentIndex
-    _functions.nextPage();
+    _Functions.nextPage();
     // Stores user answer based on element w/ active class
-    _functions.budgetLocalStorageNext();
+    _Functions.budgetLocalStorageNext();
     // As long as it isn't at final page, removes any element w/ active class to unselect
-    _functions.unselect();
+    _Functions.unselect();
     // Changes nextbtn to Submit if at final index value
-    _functions.submitBtn();
+    _Functions.submitBtn();
     // If user wants to go back or forward, search from answers array to reselect btns
-    _functions.recall();
+    _Functions.recall();
   });
   _Dom.DOMSelectors.previousButton.addEventListener("click", () => {
     // First decrements currentIndex
-    _functions.goBack();
+    _Functions.goBack();
     // Stores user answer based on element w/ active class (Difference is currentIndex + 1 instead of - 1])
-    _functions.budgetLocalStorageBack();
+    _Functions.budgetLocalStorageBack();
     // Removes any element w/ active class to unselect
-    _functions.unselect();
+    _Functions.unselect();
     // If user wants to go back or forward, search from answers array to reselect btns
-    _functions.recall();
+    _Functions.recall();
     // Visual change to make unnecessary prevbtn invisible on first page
-    _functions.goodLooks();
+    _Functions.goodLooks();
   });
   _Dom.DOMSelectors.submitButton.addEventListener("click", () => {
     // Just to log selected answers on final index
-    _functions.budgetLocalStorageFinal();
+    _Functions.budgetLocalStorageFinal();
     // Uses missed answers to see if there is need to show confirmation page
-    _functions.doubleCheck();
+    _Functions.doubleCheck();
   });
   // Restarts page
   _Dom.DOMSelectors.restartButton.addEventListener("click", function reset() {
@@ -486,7 +486,7 @@ var _functions = require("./functions");
   });
 })();
 
-},{"./Dom":"5Nh5r","./functions":"16bDA"}],"5Nh5r":[function(require,module,exports) {
+},{"./Dom":"5Nh5r","./Functions":"4Blfm"}],"5Nh5r":[function(require,module,exports) {
 var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
 _parcelHelpers.defineInteropFlag(exports);
 _parcelHelpers.export(exports, "DOMSelectors", function () {
@@ -542,7 +542,7 @@ exports.export = function (dest, destName, get) {
     get: get
   });
 };
-},{}],"16bDA":[function(require,module,exports) {
+},{}],"4Blfm":[function(require,module,exports) {
 var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
 _parcelHelpers.defineInteropFlag(exports);
 _parcelHelpers.export(exports, "unselect", function () {
@@ -798,7 +798,7 @@ const doubleCheck = () => {
   }
 };
 
-},{"./questions":"46Zod","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y"}],"46Zod":[function(require,module,exports) {
+},{"@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y","./questions":"46Zod"}],"46Zod":[function(require,module,exports) {
 var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
 _parcelHelpers.defineInteropFlag(exports);
 _parcelHelpers.export(exports, "questions", function () {
