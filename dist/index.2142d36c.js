@@ -442,106 +442,15 @@ id) /*: string*/
 }
 
 },{}],"3L8AI":[function(require,module,exports) {
-// Array for questions and answers
-const questions = [
-  {
-    question: "1. When was Pong first released?",
-    answer: [
-      { text: "1958", correct: false },
-      { text: "1967", correct: false },
-      { text: "1972", correct: true },
-      { text: "1978", correct: false },
-    ],
-  },
-  {
-    question: "2. What is the best-selling video of all time?",
-    answer: [
-      { text: "GTA V", correct: false },
-      { text: "Minecraft", correct: true },
-      { text: "Tetris", correct: false },
-      { text: "Terraria", correct: false },
-    ],
-  },
-  {
-    question: "3. Filler",
-    answer: [
-      { text: "Filler", correct: false },
-      { text: "123", correct: true },
-      { text: "Filler", correct: false },
-      { text: "Filler", correct: false },
-    ],
-  },
-  {
-    question: "4. Filler",
-    answer: [
-      { text: "Filler", correct: false },
-      { text: "Filler", correct: false },
-      { text: "345", correct: true },
-      { text: "Filler", correct: false },
-    ],
-  },
-  {
-    question: "5. Filler",
-    answer: [
-      { text: "Filler", correct: false },
-      { text: "Filler", correct: false },
-      { text: "Filler", correct: false },
-      { text: "245", correct: true },
-    ],
-  },
-  {
-    question: "6. Filler",
-    answer: [
-      { text: "238", correct: true },
-      { text: "Filler", correct: false },
-      { text: "Filler", correct: false },
-      { text: "Filler", correct: false },
-    ],
-  },
-  {
-    question: "7. Filler",
-    answer: [
-      { text: "Filler", correct: false },
-      { text: "2345", correct: true },
-      { text: "Filler", correct: false },
-      { text: "Filler", correct: false },
-    ],
-  },
-  {
-    question: "8. Filler",
-    answer: [
-      { text: "Filler", correct: false },
-      { text: "Filler", correct: false },
-      { text: "9876", correct: true },
-      { text: "Filler", correct: false },
-    ],
-  },
-  {
-    question: "9. Filler",
-    answer: [
-      { text: "Filler", correct: false },
-      { text: "Filler", correct: false },
-      { text: "Filler", correct: false },
-      { text: "F1245", correct: true },
-    ],
-  },
-  {
-    question: "10. Filler",
-    answer: [
-      { text: "Filler", correct: false },
-      { text: "Lmao", correct: true },
-      { text: "Filler", correct: false },
-      { text: "Filler", correct: false },
-    ],
-  },
-];
+var _questions = require("./questions");
 // Creates changeable array to store user answers
-let answers = [, , , , , , , , , ,];
-
-// Selects button element from HTML
-const startbtn = document.getElementById("startbtn");
+let answers = [, , , , , , , , , , ];
+// Selects start button element from HTML
+const startButton = document.getElementById("startbtn");
 // Selects next button element from HTML
-const nextbtn = document.getElementById("nextbtn");
+const nextButton = document.getElementById("nextbtn");
+// Selects previous button element from HTML
+const prevButton = document.getElementById("prevbtn");
 // Selects submit button element from HTML
 const submitButton = document.getElementById("submitbtn");
 // Creates variable by selecting ID of question template from HTML
@@ -552,7 +461,7 @@ const answerElement2 = document.getElementById("ans2");
 const answerElement3 = document.getElementById("ans3");
 const answerElement4 = document.getElementById("ans4");
 // Get all answer elements
-const allAnswers = document.querySelectorAll("div.questionbox button");
+const allAnswers = Array.prototype.slice.call(document.querySelectorAll("div.questionbox button"));
 // Get yes/no button elements
 const yesButton = document.getElementById("yes");
 const noButton = document.getElementById("no");
@@ -562,16 +471,17 @@ let currentIndex = 0;
 let missedAnswers = 0;
 // Sets initial score
 let initialScore = 0;
-
-// When user selects answer, adds active class to button
-function selected(E) {
-  // Loop through all answer elements
-  for (i = 0; i < allAnswers.length; i++) {
-    // Remove the class 'active' if it exists
-    allAnswers[i].classList.remove("active");
-  }
-  // Add 'active' classs to the element that was clicked
-  E.classList.add("active");
+for (i = 0; i < allAnswers.length; i++) {
+  let button = allAnswers[i];
+  button.addEventListener("click", function selected() {
+    // Loop through all answer elements
+    for (i = 0; i < allAnswers.length; i++) {
+      // Remove the class 'active' if it exists
+      allAnswers[i].classList.remove("active");
+    }
+    // Add 'active' classs to the element that was clicked
+    this.classList.add("active");
+  });
 }
 function unselect() {
   // Loop through all answer elements
@@ -591,7 +501,6 @@ function recall() {
     recallSelected.classList.add("active");
   }
 }
-
 function start() {
   // Changes screens by changing display
   document.getElementById("intropage").style.display = "none";
@@ -603,18 +512,17 @@ function start() {
 function load() {
   // Starts replacing templates for when index is less than 9
   if (currentIndex <= 9) {
-    questionElement.innerHTML = questions[currentIndex]["question"];
-    answerElement1.innerHTML = questions[currentIndex]["answer"][0]["text"];
-    answerElement2.innerHTML = questions[currentIndex]["answer"][1]["text"];
-    answerElement3.innerHTML = questions[currentIndex]["answer"][2]["text"];
-    answerElement4.innerHTML = questions[currentIndex]["answer"][3]["text"];
+    questionElement.innerHTML = _questions.questions[currentIndex]["question"];
+    answerElement1.innerHTML = _questions.questions[currentIndex]["answer"][0]["text"];
+    answerElement2.innerHTML = _questions.questions[currentIndex]["answer"][1]["text"];
+    answerElement3.innerHTML = _questions.questions[currentIndex]["answer"][2]["text"];
+    answerElement4.innerHTML = _questions.questions[currentIndex]["answer"][3]["text"];
   }
 }
-startbtn.addEventListener("click", () => {
+startButton.addEventListener("click", () => {
   start();
   load();
 });
-
 // Since it's not a final page yet, pressing next button will keep increasing index until it gets to max allowed index, which is 9
 function nextPage() {
   if (currentIndex < 9) {
@@ -630,7 +538,6 @@ function submitBtn() {
     submitButton.style.display = "inline-block";
   }
 }
-
 function budgetLocalStorageNext() {
   // Searches for all DOM elements with class of active
   const selectedAnswer = document.querySelector(".active");
@@ -643,9 +550,8 @@ function budgetLocalStorageNext() {
     // If there is no answer, replace instead with null
     answers[currentIndex - 1] = null;
   }
-  console.log(answers);
 }
-nextbtn.addEventListener("click", () => {
+nextButton.addEventListener("click", () => {
   // First increments currentIndex
   nextPage();
   // Stores user answer based on element w/ active class
@@ -657,7 +563,6 @@ nextbtn.addEventListener("click", () => {
   // If user wants to go back or forward, search from answers array to reselect btns
   recall();
 });
-
 function goBack() {
   // If index is not equal to 0:
   if (currentIndex != 0) {
@@ -692,9 +597,8 @@ function budgetLocalStorageBack() {
     // If there is no answer, replace instead with null
     answers[currentIndex + 1] = null;
   }
-  console.log(answers);
 }
-prevbtn.addEventListener("click", () => {
+prevButton.addEventListener("click", () => {
   // First decrements currentIndex
   goBack();
   // Stores user answer based on element w/ active class (Difference is currentIndex + 1 instead of - 1])
@@ -706,7 +610,6 @@ prevbtn.addEventListener("click", () => {
   // Visual change to make unnecessary prevbtn invisible on first page
   goodLooks();
 });
-
 function grader() {
   // loops through everything in answers array
   for (i = 0; i < answers.length; i++) {
@@ -715,18 +618,18 @@ function grader() {
       // First sets the number from the answerElement ids, ex "3" from ans3
       let substitute = answers[i].charAt(3);
       // Correlates it with the question of the same index, then the subtracts 1 from the substitute since indexes start from 0, and then checks correct value
-      let choice = questions[i].answer[substitute - 1].correct;
+      let choice = _questions.questions[i].answer[substitute - 1].correct;
       // If it is true add 1 to score
       if (choice === true) {
         initialScore++;
-      }
-      // If it is false add nothing
-      else if (choice === false) {
+              // If it is false add nothing
+} else // If it is false add nothing
+      if (choice === false) {
         initialScore;
       }
-    }
-    // If there is no user answer, add nothing
-    else if (answers[i] === null) {
+          // If there is no user answer, add nothing
+} else // If there is no user answer, add nothing
+    if (answers[i] === null) {
       initialScore;
     }
   }
@@ -735,24 +638,18 @@ function resultsPage() {
   // Switches to results page by swapping displays
   document.getElementById("template").style.display = "none";
   document.getElementById("results").style.display = "flex";
-  document.getElementById(
-    "name"
-  ).innerText = `You got ${initialScore}/10 correct!`;
+  document.getElementById("name").innerText = `You got ${initialScore}/10 correct!`;
   // Different responses based on score
   if (initialScore < 5) {
-    document.getElementById("text").innerHTML =
-      "You don't know much about video games";
+    document.getElementById("text").innerHTML = "You don't know much about video games";
   }
   if (initialScore > 5 && initialScore < 10) {
-    document.getElementById("text").innerHTML =
-      "You know some things about video games";
+    document.getElementById("text").innerHTML = "You know some things about video games";
   }
   if (initialScore === 10) {
-    document.getElementById("text").innerHTML =
-      "You know a lot about video games";
+    document.getElementById("text").innerHTML = "You know a lot about video games";
   }
 }
-
 function budgetLocalStorageFinal() {
   // Searches for all DOM elements with class of active
   const selectedAnswer = document.querySelector(".active");
@@ -779,9 +676,7 @@ function doubleCheck() {
   // If there are missed answers, display confirmation page
   if (missedAnswers > 0) {
     document.getElementById("confirmation").style.display = "flex";
-    document.getElementById(
-      "prompt"
-    ).innerHTML = `You are missing ${missedAnswers} answers. Do you still want to submit?`;
+    document.getElementById("prompt").innerHTML = `You are missing ${missedAnswers} answers. Do you still want to submit?`;
     // Creates transparent overlay that prevents interaction with background
     document.getElementById("overlay").style.zIndex = "1";
     document.getElementById("confirmation").style.zIndex = "2";
@@ -798,9 +693,9 @@ function doubleCheck() {
       document.getElementById("confirmation").style.zIndex = "0";
       missedAnswers = 0;
     });
-  }
-  // Otherwise go to results page
-  else if (missedAnswers === 0) {
+      // Otherwise go to results page
+} else // Otherwise go to results page
+  if (missedAnswers === 0) {
     grader();
     resultsPage();
   }
@@ -813,11 +708,212 @@ submitButton.addEventListener("click", () => {
   // Uses missed answers to see if there is need to show confirmation page
   doubleCheck();
 });
-
+// Restarts page
 document.getElementById("restart").addEventListener("click", function reset() {
   location.reload();
 });
 
+},{"./questions":"46Zod"}],"46Zod":[function(require,module,exports) {
+var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
+_parcelHelpers.defineInteropFlag(exports);
+_parcelHelpers.export(exports, "questions", function () {
+  return questions;
+});
+// Array for questions and answers
+const questions = [{
+  question: "1. When was Pong first released?",
+  answer: [{
+    text: "1958",
+    correct: false
+  }, {
+    text: "1967",
+    correct: false
+  }, {
+    text: "1972",
+    correct: true
+  }, {
+    text: "1978",
+    correct: false
+  }]
+}, {
+  question: "2. What is the best-selling video of all time?",
+  answer: [{
+    text: "GTA V",
+    correct: false
+  }, {
+    text: "Minecraft",
+    correct: true
+  }, {
+    text: "Tetris",
+    correct: false
+  }, {
+    text: "Terraria",
+    correct: false
+  }]
+}, {
+  question: "3. Filler",
+  answer: [{
+    text: "Filler",
+    correct: false
+  }, {
+    text: "123",
+    correct: true
+  }, {
+    text: "Filler",
+    correct: false
+  }, {
+    text: "Filler",
+    correct: false
+  }]
+}, {
+  question: "4. Filler",
+  answer: [{
+    text: "Filler",
+    correct: false
+  }, {
+    text: "Filler",
+    correct: false
+  }, {
+    text: "345",
+    correct: true
+  }, {
+    text: "Filler",
+    correct: false
+  }]
+}, {
+  question: "5. Filler",
+  answer: [{
+    text: "Filler",
+    correct: false
+  }, {
+    text: "Filler",
+    correct: false
+  }, {
+    text: "Filler",
+    correct: false
+  }, {
+    text: "245",
+    correct: true
+  }]
+}, {
+  question: "6. Filler",
+  answer: [{
+    text: "238",
+    correct: true
+  }, {
+    text: "Filler",
+    correct: false
+  }, {
+    text: "Filler",
+    correct: false
+  }, {
+    text: "Filler",
+    correct: false
+  }]
+}, {
+  question: "7. Filler",
+  answer: [{
+    text: "Filler",
+    correct: false
+  }, {
+    text: "2345",
+    correct: true
+  }, {
+    text: "Filler",
+    correct: false
+  }, {
+    text: "Filler",
+    correct: false
+  }]
+}, {
+  question: "8. Filler",
+  answer: [{
+    text: "Filler",
+    correct: false
+  }, {
+    text: "Filler",
+    correct: false
+  }, {
+    text: "9876",
+    correct: true
+  }, {
+    text: "Filler",
+    correct: false
+  }]
+}, {
+  question: "9. Filler",
+  answer: [{
+    text: "Filler",
+    correct: false
+  }, {
+    text: "Filler",
+    correct: false
+  }, {
+    text: "Filler",
+    correct: false
+  }, {
+    text: "F1245",
+    correct: true
+  }]
+}, {
+  question: "10. Filler",
+  answer: [{
+    text: "Filler",
+    correct: false
+  }, {
+    text: "Lmao",
+    correct: true
+  }, {
+    text: "Filler",
+    correct: false
+  }, {
+    text: "Filler",
+    correct: false
+  }]
+}];
+
+},{"@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y"}],"5gA8y":[function(require,module,exports) {
+"use strict";
+
+exports.interopDefault = function (a) {
+  return a && a.__esModule ? a : {
+    default: a
+  };
+};
+
+exports.defineInteropFlag = function (a) {
+  Object.defineProperty(a, '__esModule', {
+    value: true
+  });
+};
+
+exports.exportAll = function (source, dest) {
+  Object.keys(source).forEach(function (key) {
+    if (key === 'default' || key === '__esModule') {
+      return;
+    } // Skip duplicate re-exports when they have the same value.
+
+
+    if (key in dest && dest[key] === source[key]) {
+      return;
+    }
+
+    Object.defineProperty(dest, key, {
+      enumerable: true,
+      get: function () {
+        return source[key];
+      }
+    });
+  });
+  return dest;
+};
+
+exports.export = function (dest, destName, get) {
+  Object.defineProperty(dest, destName, {
+    enumerable: true,
+    get: get
+  });
+};
 },{}]},["21c8X","3L8AI"], "3L8AI", "parcelRequire5a55")
 
 //# sourceMappingURL=index.2142d36c.js.map

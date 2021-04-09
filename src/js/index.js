@@ -1,103 +1,106 @@
 // Array for questions and answers
 const questions = [
   {
-    question: "1. When was Pong first released?",
+    question: "1. Which of these games was released the earliest?",
     answer: [
-      { text: "1958", correct: false },
-      { text: "1967", correct: false },
-      { text: "1972", correct: true },
-      { text: "1978", correct: false },
+      { text: "A. Final Fantasy VII", correct: false },
+      { text: "B. Pokemon Red and Blue", correct: false },
+      { text: "C. Super Mario Bros", correct: true },
+      { text: "D. The Legend of Zelda: Ocarina of Time", correct: false },
     ],
   },
   {
     question: "2. What is the best-selling video of all time?",
     answer: [
-      { text: "GTA V", correct: false },
-      { text: "Minecraft", correct: true },
-      { text: "Tetris", correct: false },
-      { text: "Terraria", correct: false },
+      { text: "A. GTA V", correct: false },
+      { text: "B. Minecraft", correct: true },
+      { text: "C. Tetris", correct: false },
+      { text: "D. Terraria", correct: false },
     ],
   },
   {
-    question: "3. Filler",
+    question: "3. What game is the company Epic Games most well known for?",
     answer: [
-      { text: "Filler", correct: false },
-      { text: "123", correct: true },
-      { text: "Filler", correct: false },
-      { text: "Filler", correct: false },
+      { text: "A. Fortnite", correct: true },
+      { text: "B. Call of Duty: Warzone", correct: false },
+      { text: "C. PlayerUnkown's Battlegrounds ", correct: false },
+      { text: "D. Apex Legends", correct: false },
     ],
   },
   {
-    question: "4. Filler",
+    question: "4. Which of these games is from the MOBA genre?",
     answer: [
-      { text: "Filler", correct: false },
-      { text: "Filler", correct: false },
-      { text: "345", correct: true },
-      { text: "Filler", correct: false },
+      { text: "A. Minecraft", correct: false },
+      { text: "B. GTA V", correct: false },
+      { text: "C. League of Legends", correct: true },
+      { text: "D. World of Warcraft", correct: false },
     ],
   },
   {
-    question: "5. Filler",
+    question: "5. Which of these games was released in 2020?",
     answer: [
-      { text: "Filler", correct: false },
-      { text: "Filler", correct: false },
-      { text: "Filler", correct: false },
-      { text: "245", correct: true },
+      { text: "A. Stardew Valley", correct: false },
+      { text: "B. The Legend of Zelda: Breath of the Wild", correct: false },
+      { text: "C. Overwatch", correct: false },
+      { text: "D. Cyberpunk 2077", correct: true },
     ],
   },
   {
-    question: "6. Filler",
+    question: "6. Which of these is NOT a genre of video games?",
     answer: [
-      { text: "238", correct: true },
-      { text: "Filler", correct: false },
-      { text: "Filler", correct: false },
-      { text: "Filler", correct: false },
+      { text: "A. Eating", correct: true },
+      { text: "B. Shooter", correct: false },
+      { text: "C. Sandbox", correct: false },
+      { text: "D. Strategy", correct: false },
     ],
   },
   {
-    question: "7. Filler",
+    question:
+      "7. Which of these is a platform where you can download video games?",
     answer: [
-      { text: "Filler", correct: false },
-      { text: "2345", correct: true },
-      { text: "Filler", correct: false },
-      { text: "Filler", correct: false },
+      { text: "A. Steam", correct: true },
+      { text: "B. ITunes", correct: false },
+      { text: "C. Hulu", correct: false },
+      { text: "D. Soundcloud", correct: false },
     ],
   },
   {
-    question: "8. Filler",
+    question: "8. Which of these games was released before the 1990s?",
     answer: [
-      { text: "Filler", correct: false },
-      { text: "Filler", correct: false },
-      { text: "9876", correct: true },
-      { text: "Filler", correct: false },
+      { text: "A. Street Fighter II", correct: false },
+      { text: "B. Super Mario World", correct: false },
+      { text: "C. GTA", correct: false },
+      { text: "D. Tetris", correct: true },
     ],
   },
   {
-    question: "9. Filler",
+    question: "9. Which of these was NOT an arcade game?",
     answer: [
-      { text: "Filler", correct: false },
-      { text: "Filler", correct: false },
-      { text: "Filler", correct: false },
-      { text: "F1245", correct: true },
+      { text: "A. Pac-Man", correct: false },
+      { text: "B. Halo: Combat Evolved", correct: true },
+      { text: "C. Donkey Kong", correct: false },
+      { text: "D. Space Invaders", correct: false },
     ],
   },
   {
-    question: "10. Filler",
+    question: "10. Which is these is a singleplayer game only?",
     answer: [
-      { text: "Filler", correct: false },
-      { text: "Lmao", correct: true },
-      { text: "Filler", correct: false },
-      { text: "Filler", correct: false },
+      { text: "A. Minecraft", correct: false },
+      { text: "B. The Legend of Zelda: Breath of the Wild", correct: true },
+      { text: "C. The Escapists 2", correct: false },
+      { text: "D. Starcraft 2", correct: false },
     ],
   },
 ];
 // Creates changeable array to store user answers
 let answers = [, , , , , , , , , ,];
 
-// Selects button element from HTML
-const startbtn = document.getElementById("startbtn");
+// Selects start button element from HTML
+const startButton = document.getElementById("startbtn");
 // Selects next button element from HTML
-const nextbtn = document.getElementById("nextbtn");
+const nextButton = document.getElementById("nextbtn");
+// Selects previous button element from HTML
+const prevButton = document.getElementById("prevbtn");
 // Selects submit button element from HTML
 const submitButton = document.getElementById("submitbtn");
 // Creates variable by selecting ID of question template from HTML
@@ -108,7 +111,9 @@ const answerElement2 = document.getElementById("ans2");
 const answerElement3 = document.getElementById("ans3");
 const answerElement4 = document.getElementById("ans4");
 // Get all answer elements
-const allAnswers = document.querySelectorAll("div.questionbox button");
+const allAnswers = Array.prototype.slice.call(
+  document.querySelectorAll("div.questionbox button")
+);
 // Get yes/no button elements
 const yesButton = document.getElementById("yes");
 const noButton = document.getElementById("no");
@@ -119,15 +124,17 @@ let missedAnswers = 0;
 // Sets initial score
 let initialScore = 0;
 
-// When user selects answer, adds active class to button
-function selected(E) {
-  // Loop through all answer elements
-  for (i = 0; i < allAnswers.length; i++) {
-    // Remove the class 'active' if it exists
-    allAnswers[i].classList.remove("active");
-  }
-  // Add 'active' classs to the element that was clicked
-  E.classList.add("active");
+for (i = 0; i < allAnswers.length; i++) {
+  let button = allAnswers[i];
+  button.addEventListener("click", function selected() {
+    // Loop through all answer elements
+    for (i = 0; i < allAnswers.length; i++) {
+      // Remove the class 'active' if it exists
+      allAnswers[i].classList.remove("active");
+    }
+    // Add 'active' classs to the element that was clicked
+    this.classList.add("active");
+  });
 }
 function unselect() {
   // Loop through all answer elements
@@ -166,7 +173,7 @@ function load() {
     answerElement4.innerHTML = questions[currentIndex]["answer"][3]["text"];
   }
 }
-startbtn.addEventListener("click", () => {
+startButton.addEventListener("click", () => {
   start();
   load();
 });
@@ -186,7 +193,6 @@ function submitBtn() {
     submitButton.style.display = "inline-block";
   }
 }
-
 function budgetLocalStorageNext() {
   // Searches for all DOM elements with class of active
   const selectedAnswer = document.querySelector(".active");
@@ -199,9 +205,8 @@ function budgetLocalStorageNext() {
     // If there is no answer, replace instead with null
     answers[currentIndex - 1] = null;
   }
-  console.log(answers);
 }
-nextbtn.addEventListener("click", () => {
+nextButton.addEventListener("click", () => {
   // First increments currentIndex
   nextPage();
   // Stores user answer based on element w/ active class
@@ -248,9 +253,8 @@ function budgetLocalStorageBack() {
     // If there is no answer, replace instead with null
     answers[currentIndex + 1] = null;
   }
-  console.log(answers);
 }
-prevbtn.addEventListener("click", () => {
+prevButton.addEventListener("click", () => {
   // First decrements currentIndex
   goBack();
   // Stores user answer based on element w/ active class (Difference is currentIndex + 1 instead of - 1])
@@ -370,6 +374,7 @@ submitButton.addEventListener("click", () => {
   doubleCheck();
 });
 
+// Restarts page
 document.getElementById("restart").addEventListener("click", function reset() {
   location.reload();
 });
