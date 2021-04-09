@@ -442,29 +442,180 @@ id) /*: string*/
 }
 
 },{}],"3L8AI":[function(require,module,exports) {
-var _questions = require("./questions");
+var _Dom = require("./Dom");
+var _Functions = require("./Functions");
+// IIFE that runs game
+(() => {
+  _Dom.DOMSelectors.startButton.addEventListener("click", () => {
+    _Functions.start();
+    _Functions.load();
+  });
+  _Dom.DOMSelectors.nextButton.addEventListener("click", () => {
+    // First increments currentIndex
+    _Functions.nextPage();
+    // Stores user answer based on element w/ active class
+    _Functions.budgetLocalStorageNext();
+    // As long as it isn't at final page, removes any element w/ active class to unselect
+    _Functions.unselect();
+    // Changes nextbtn to Submit if at final index value
+    _Functions.submitBtn();
+    // If user wants to go back or forward, search from answers array to reselect btns
+    _Functions.recall();
+  });
+  _Dom.DOMSelectors.previousButton.addEventListener("click", () => {
+    // First decrements currentIndex
+    _Functions.goBack();
+    // Stores user answer based on element w/ active class (Difference is currentIndex + 1 instead of - 1])
+    _Functions.budgetLocalStorageBack();
+    // Removes any element w/ active class to unselect
+    _Functions.unselect();
+    // If user wants to go back or forward, search from answers array to reselect btns
+    _Functions.recall();
+    // Visual change to make unnecessary prevbtn invisible on first page
+    _Functions.goodLooks();
+  });
+  _Dom.DOMSelectors.submitButton.addEventListener("click", () => {
+    // Just to log selected answers on final index
+    _Functions.budgetLocalStorageFinal();
+    // Uses missed answers to see if there is need to show confirmation page
+    _Functions.doubleCheck();
+  });
+  // Restarts page
+  _Dom.DOMSelectors.restartButton.addEventListener("click", function reset() {
+    location.reload();
+  });
+})();
+
+},{"./Dom":"5Nh5r","./Functions":"4Blfm"}],"5Nh5r":[function(require,module,exports) {
+var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
+_parcelHelpers.defineInteropFlag(exports);
+_parcelHelpers.export(exports, "DOMSelectors", function () {
+  return DOMSelectors;
+});
+const DOMSelectors = {
+  startButton: document.getElementById("startbtn"),
+  nextButton: document.getElementById("nextbtn"),
+  previousButton: document.getElementById("prevbtn"),
+  submitButton: document.getElementById("submitbtn"),
+  restartButton: document.getElementById("restart")
+};
+
+},{"@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y"}],"5gA8y":[function(require,module,exports) {
+"use strict";
+
+exports.interopDefault = function (a) {
+  return a && a.__esModule ? a : {
+    default: a
+  };
+};
+
+exports.defineInteropFlag = function (a) {
+  Object.defineProperty(a, '__esModule', {
+    value: true
+  });
+};
+
+exports.exportAll = function (source, dest) {
+  Object.keys(source).forEach(function (key) {
+    if (key === 'default' || key === '__esModule') {
+      return;
+    } // Skip duplicate re-exports when they have the same value.
+
+
+    if (key in dest && dest[key] === source[key]) {
+      return;
+    }
+
+    Object.defineProperty(dest, key, {
+      enumerable: true,
+      get: function () {
+        return source[key];
+      }
+    });
+  });
+  return dest;
+};
+
+exports.export = function (dest, destName, get) {
+  Object.defineProperty(dest, destName, {
+    enumerable: true,
+    get: get
+  });
+};
+},{}],"4Blfm":[function(require,module,exports) {
+var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
+_parcelHelpers.defineInteropFlag(exports);
+_parcelHelpers.export(exports, "unselect", function () {
+  return unselect;
+});
+_parcelHelpers.export(exports, "recall", function () {
+  return recall;
+});
+_parcelHelpers.export(exports, "start", function () {
+  return start;
+});
+_parcelHelpers.export(exports, "load", function () {
+  return load;
+});
+_parcelHelpers.export(exports, "nextPage", function () {
+  return nextPage;
+});
+_parcelHelpers.export(exports, "submitBtn", function () {
+  return submitBtn;
+});
+_parcelHelpers.export(exports, "budgetLocalStorageBack", function () {
+  return budgetLocalStorageBack;
+});
+_parcelHelpers.export(exports, "budgetLocalStorageNext", function () {
+  return budgetLocalStorageNext;
+});
+_parcelHelpers.export(exports, "budgetLocalStorageFinal", function () {
+  return budgetLocalStorageFinal;
+});
+_parcelHelpers.export(exports, "goBack", function () {
+  return goBack;
+});
+_parcelHelpers.export(exports, "goodLooks", function () {
+  return goodLooks;
+});
+_parcelHelpers.export(exports, "doubleCheck", function () {
+  return doubleCheck;
+});
+var _Questions = require("./Questions");
 // Creates changeable array to store user answers
 let userAnswers = [, , , , , , , , , , ];
 // Sets variable for first set
 let currentIndex = 0;
-// Set variable for missed answers
-let missedAnswers = 0;
-// Sets initial score
-let initialScore = 0;
 // Get all answer elements
 const allAnswers = document.querySelectorAll("div.questionbox button");
-for (i = 0; i < allAnswers.length; i++) {
-  let button = allAnswers[i];
-  button.addEventListener("click", function selected() {
-    // Loop through all answer elements
-    for (i = 0; i < allAnswers.length; i++) {
-      // Remove the class 'active' if it exists
-      allAnswers[i].classList.remove("active");
-    }
-    // Add 'active' classs to the element that was clicked
-    this.classList.add("active");
-  });
-}
+// IIFE for select mechanism
+const selectMechanism = () => {
+  for (i = 0; i < allAnswers.length; i++) {
+    let button = allAnswers[i];
+    button.addEventListener("click", function selected() {
+      // Loop through all answer elements
+      for (i = 0; i < allAnswers.length; i++) {
+        // Remove the class 'active' if it exists
+        allAnswers[i].classList.remove("active");
+      }
+      // Add 'active' classs to the element that was clicked
+      this.classList.add("active");
+    });
+  }
+};
+selectMechanism();
+const goodLooks = () => {
+  // If index = 0, don't display previous button
+  if (currentIndex === 0) {
+    prevbtn.style.display = "none";
+  }
+  // If it isn't final page, going back will change submitbtn back to nextbtn
+  if (currentIndex < 9) {
+    nextbtn.style.display = "inline-block";
+    document.getElementById("submitbtn").style.display = "none";
+  }
+};
+goodLooks();
 const unselect = () => {
   // Loop through all answer elements
   for (i = 0; i < allAnswers.length; i++) {
@@ -494,17 +645,13 @@ const start = () => {
 const load = () => {
   // Starts replacing templates for when index is less than 9
   if (currentIndex <= 9) {
-    document.getElementById("question-temp").innerHTML = _questions.questions[currentIndex]["question"];
-    document.getElementById("ans1").innerHTML = _questions.questions[currentIndex]["answer"][0]["text"];
-    document.getElementById("ans2").innerHTML = _questions.questions[currentIndex]["answer"][1]["text"];
-    document.getElementById("ans3").innerHTML = _questions.questions[currentIndex]["answer"][2]["text"];
-    document.getElementById("ans4").innerHTML = _questions.questions[currentIndex]["answer"][3]["text"];
+    document.getElementById("question-temp").innerHTML = _Questions.questions[currentIndex]["question"];
+    document.getElementById("ans1").innerHTML = _Questions.questions[currentIndex]["answer"][0]["text"];
+    document.getElementById("ans2").innerHTML = _Questions.questions[currentIndex]["answer"][1]["text"];
+    document.getElementById("ans3").innerHTML = _Questions.questions[currentIndex]["answer"][2]["text"];
+    document.getElementById("ans4").innerHTML = _Questions.questions[currentIndex]["answer"][3]["text"];
   }
 };
-document.getElementById("startbtn").addEventListener("click", () => {
-  start();
-  load();
-});
 // Since it's not a final page yet, pressing next button will keep increasing index until it gets to max allowed index, which is 9
 const nextPage = () => {
   if (currentIndex < 9) {
@@ -520,6 +667,16 @@ const submitBtn = () => {
     document.getElementById("submitbtn").style.display = "inline-block";
   }
 };
+const goBack = () => {
+  // If index is not equal to 0:
+  if (currentIndex != 0) {
+    // Minus 1 from index
+    --currentIndex;
+    load();
+    // Change next button back to next if it turned to submit
+    nextbtn.innerHTML = "Next";
+  }
+};
 const budgetLocalStorageNext = () => {
   // Searches for all DOM elements with class of active
   const selectedAnswer = document.querySelector(".active");
@@ -533,40 +690,6 @@ const budgetLocalStorageNext = () => {
     userAnswers[currentIndex - 1] = null;
   }
 };
-document.getElementById("nextbtn").addEventListener("click", () => {
-  // First increments currentIndex
-  nextPage();
-  // Stores user answer based on element w/ active class
-  budgetLocalStorageNext();
-  // As long as it isn't at final page, removes any element w/ active class to unselect
-  unselect();
-  // Changes nextbtn to Submit if at final index value
-  submitBtn();
-  // If user wants to go back or forward, search from answers array to reselect btns
-  recall();
-});
-const goBack = () => {
-  // If index is not equal to 0:
-  if (currentIndex != 0) {
-    // Minus 1 from index
-    --currentIndex;
-    load();
-    // Change next button back to next if it turned to submit
-    nextbtn.innerHTML = "Next";
-  }
-};
-const goodLooks = () => {
-  // If index = 0, don't display previous button
-  if (currentIndex === 0) {
-    prevbtn.style.display = "none";
-  }
-  // If it isn't final page, going back will change submitbtn back to nextbtn
-  if (currentIndex < 9) {
-    nextbtn.style.display = "inline-block";
-    document.getElementById("submitbtn").style.display = "none";
-  }
-};
-goodLooks();
 const budgetLocalStorageBack = () => {
   // Searches for all DOM elements with class of active
   const selectedAnswer = document.querySelector(".active");
@@ -578,58 +701,6 @@ const budgetLocalStorageBack = () => {
   } else {
     // If there is no answer, replace instead with null
     userAnswers[currentIndex + 1] = null;
-  }
-};
-document.getElementById("prevbtn").addEventListener("click", () => {
-  // First decrements currentIndex
-  goBack();
-  // Stores user answer based on element w/ active class (Difference is currentIndex + 1 instead of - 1])
-  budgetLocalStorageBack();
-  // Removes any element w/ active class to unselect
-  unselect();
-  // If user wants to go back or forward, search from answers array to reselect btns
-  recall();
-  // Visual change to make unnecessary prevbtn invisible on first page
-  goodLooks();
-});
-const grader = () => {
-  // loops through everything in answers array
-  for (i = 0; i < userAnswers.length; i++) {
-    // If answers is not null, which means if user put in an answer
-    if (userAnswers[i] != null) {
-      // First sets the number from the answerElement ids, ex "3" from ans3
-      let substitute = userAnswers[i].charAt(3);
-      // Correlates it with the question of the same index, then the subtracts 1 from the substitute since indexes start from 0, and then checks correct value
-      let choice = _questions.questions[i].answer[substitute - 1].correct;
-      // If it is true add 1 to score
-      if (choice === true) {
-        initialScore++;
-              // If it is false add nothing
-} else // If it is false add nothing
-      if (choice === false) {
-        initialScore;
-      }
-          // If there is no user answer, add nothing
-} else // If there is no user answer, add nothing
-    if (userAnswers[i] === null) {
-      initialScore;
-    }
-  }
-};
-const resultsPage = () => {
-  // Switches to results page by swapping displays
-  document.getElementById("template").style.display = "none";
-  document.getElementById("results").style.display = "flex";
-  document.getElementById("name").innerText = `You got ${initialScore}/10 correct!`;
-  // Different responses based on score
-  if (initialScore < 5) {
-    document.getElementById("text").innerHTML = "You don't know much about video games";
-  }
-  if (initialScore > 5 && initialScore < 10) {
-    document.getElementById("text").innerHTML = "You know some things about video games";
-  }
-  if (initialScore === 10) {
-    document.getElementById("text").innerHTML = "You know a lot about video games";
   }
 };
 const budgetLocalStorageFinal = () => {
@@ -645,7 +716,53 @@ const budgetLocalStorageFinal = () => {
     userAnswers[currentIndex] = null;
   }
 };
-const missedAnswersChecker = () => {
+const doubleCheck = () => {
+  // Sets initial score
+  let initialScore = 0;
+  // First grades
+  const grader = () => {
+    // loops through everything in answers array
+    for (i = 0; i < userAnswers.length; i++) {
+      // If answers is not null, which means if user put in an answer
+      if (userAnswers[i] != null) {
+        // First sets the number from the answerElement ids, ex "3" from ans3
+        let substitute = userAnswers[i].charAt(3);
+        // Correlates it with the question of the same index, then the subtracts 1 from the substitute since indexes start from 0, and then checks correct value
+        let choice = _Questions.questions[i].answer[substitute - 1].correct;
+        // If it is true add 1 to score
+        if (choice === true) {
+          initialScore++;
+                  // If it is false add nothing
+} else // If it is false add nothing
+        if (choice === false) {
+          initialScore;
+        }
+              // If there is no user answer, add nothing
+} else // If there is no user answer, add nothing
+      if (userAnswers[i] === null) {
+        initialScore;
+      }
+    }
+  };
+  // Then goes to results page
+  const resultsPage = () => {
+    // Switches to results page by swapping displays
+    document.getElementById("template").style.display = "none";
+    document.getElementById("results").style.display = "flex";
+    document.getElementById("name").innerText = `You got ${initialScore}/10 correct!`;
+    // Different responses based on score
+    if (initialScore < 5) {
+      document.getElementById("text").innerHTML = "You don't know much about video games.";
+    }
+    if (initialScore > 5 && initialScore < 10) {
+      document.getElementById("text").innerHTML = "You know some things about video games.";
+    }
+    if (initialScore === 10) {
+      document.getElementById("text").innerHTML = "You know a lot about video games.";
+    }
+  };
+  // Set variable for missed answers
+  let missedAnswers = 0;
   // Loops through all indexes of answers array and check for nulls
   for (i = 0; i < userAnswers.length; i++) {
     if (userAnswers[i] === null) {
@@ -653,8 +770,6 @@ const missedAnswersChecker = () => {
       missedAnswers++;
     }
   }
-};
-const doubleCheck = () => {
   // If there are missed answers, display confirmation page
   if (missedAnswers > 0) {
     document.getElementById("confirmation").style.display = "flex";
@@ -682,20 +797,8 @@ const doubleCheck = () => {
     resultsPage();
   }
 };
-document.getElementById("submitbtn").addEventListener("click", () => {
-  // Just to log selected answers on final index
-  budgetLocalStorageFinal();
-  // First calculates missed answers
-  missedAnswersChecker();
-  // Uses missed answers to see if there is need to show confirmation page
-  doubleCheck();
-});
-// Restarts page
-document.getElementById("restart").addEventListener("click", function reset() {
-  location.reload();
-});
 
-},{"./questions":"46Zod"}],"46Zod":[function(require,module,exports) {
+},{"./Questions":"1boA1","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y"}],"1boA1":[function(require,module,exports) {
 var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
 _parcelHelpers.defineInteropFlag(exports);
 _parcelHelpers.export(exports, "questions", function () {
@@ -854,48 +957,6 @@ const questions = [{
   }]
 }];
 
-},{"@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y"}],"5gA8y":[function(require,module,exports) {
-"use strict";
-
-exports.interopDefault = function (a) {
-  return a && a.__esModule ? a : {
-    default: a
-  };
-};
-
-exports.defineInteropFlag = function (a) {
-  Object.defineProperty(a, '__esModule', {
-    value: true
-  });
-};
-
-exports.exportAll = function (source, dest) {
-  Object.keys(source).forEach(function (key) {
-    if (key === 'default' || key === '__esModule') {
-      return;
-    } // Skip duplicate re-exports when they have the same value.
-
-
-    if (key in dest && dest[key] === source[key]) {
-      return;
-    }
-
-    Object.defineProperty(dest, key, {
-      enumerable: true,
-      get: function () {
-        return source[key];
-      }
-    });
-  });
-  return dest;
-};
-
-exports.export = function (dest, destName, get) {
-  Object.defineProperty(dest, destName, {
-    enumerable: true,
-    get: get
-  });
-};
-},{}]},["21c8X","3L8AI"], "3L8AI", "parcelRequire5a55")
+},{"@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y"}]},["21c8X","3L8AI"], "3L8AI", "parcelRequire5a55")
 
 //# sourceMappingURL=index.2142d36c.js.map

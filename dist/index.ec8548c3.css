@@ -222,6 +222,9 @@
   align-items: center;
   justify-content: space-evenly;
   flex-direction: column;
+  border: 1px solid black;
+  outline: 1px solid black;
+  outline-offset: -1rem;
   z-index: 0;
 }
 
