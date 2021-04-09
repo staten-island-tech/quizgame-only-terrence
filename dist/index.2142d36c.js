@@ -443,42 +443,42 @@ id) /*: string*/
 
 },{}],"3L8AI":[function(require,module,exports) {
 var _Dom = require("./Dom");
-var _Functions = require("./Functions");
+var _functions = require("./functions");
 // IIFE that runs game
 (() => {
   _Dom.DOMSelectors.startButton.addEventListener("click", () => {
-    _Functions.start();
-    _Functions.load();
+    _functions.start();
+    _functions.load();
   });
   _Dom.DOMSelectors.nextButton.addEventListener("click", () => {
     // First increments currentIndex
-    _Functions.nextPage();
+    _functions.nextPage();
     // Stores user answer based on element w/ active class
-    _Functions.budgetLocalStorageNext();
+    _functions.budgetLocalStorageNext();
     // As long as it isn't at final page, removes any element w/ active class to unselect
-    _Functions.unselect();
+    _functions.unselect();
     // Changes nextbtn to Submit if at final index value
-    _Functions.submitBtn();
+    _functions.submitBtn();
     // If user wants to go back or forward, search from answers array to reselect btns
-    _Functions.recall();
+    _functions.recall();
   });
   _Dom.DOMSelectors.previousButton.addEventListener("click", () => {
     // First decrements currentIndex
-    _Functions.goBack();
+    _functions.goBack();
     // Stores user answer based on element w/ active class (Difference is currentIndex + 1 instead of - 1])
-    _Functions.budgetLocalStorageBack();
+    _functions.budgetLocalStorageBack();
     // Removes any element w/ active class to unselect
-    _Functions.unselect();
+    _functions.unselect();
     // If user wants to go back or forward, search from answers array to reselect btns
-    _Functions.recall();
+    _functions.recall();
     // Visual change to make unnecessary prevbtn invisible on first page
-    _Functions.goodLooks();
+    _functions.goodLooks();
   });
   _Dom.DOMSelectors.submitButton.addEventListener("click", () => {
     // Just to log selected answers on final index
-    _Functions.budgetLocalStorageFinal();
+    _functions.budgetLocalStorageFinal();
     // Uses missed answers to see if there is need to show confirmation page
-    _Functions.doubleCheck();
+    _functions.doubleCheck();
   });
   // Restarts page
   _Dom.DOMSelectors.restartButton.addEventListener("click", function reset() {
@@ -486,7 +486,7 @@ var _Functions = require("./Functions");
   });
 })();
 
-},{"./Dom":"5Nh5r","./Functions":"4Blfm"}],"5Nh5r":[function(require,module,exports) {
+},{"./Dom":"5Nh5r","./functions":"16bDA"}],"5Nh5r":[function(require,module,exports) {
 var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
 _parcelHelpers.defineInteropFlag(exports);
 _parcelHelpers.export(exports, "DOMSelectors", function () {
@@ -542,7 +542,7 @@ exports.export = function (dest, destName, get) {
     get: get
   });
 };
-},{}],"4Blfm":[function(require,module,exports) {
+},{}],"16bDA":[function(require,module,exports) {
 var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
 _parcelHelpers.defineInteropFlag(exports);
 _parcelHelpers.export(exports, "unselect", function () {
@@ -581,7 +581,7 @@ _parcelHelpers.export(exports, "goodLooks", function () {
 _parcelHelpers.export(exports, "doubleCheck", function () {
   return doubleCheck;
 });
-var _Questions = require("./Questions");
+var _questions = require("./questions");
 // Creates changeable array to store user answers
 let userAnswers = [, , , , , , , , , , ];
 // Sets variable for first set
@@ -645,11 +645,11 @@ const start = () => {
 const load = () => {
   // Starts replacing templates for when index is less than 9
   if (currentIndex <= 9) {
-    document.getElementById("question-temp").innerHTML = _Questions.questions[currentIndex]["question"];
-    document.getElementById("ans1").innerHTML = _Questions.questions[currentIndex]["answer"][0]["text"];
-    document.getElementById("ans2").innerHTML = _Questions.questions[currentIndex]["answer"][1]["text"];
-    document.getElementById("ans3").innerHTML = _Questions.questions[currentIndex]["answer"][2]["text"];
-    document.getElementById("ans4").innerHTML = _Questions.questions[currentIndex]["answer"][3]["text"];
+    document.getElementById("question-temp").innerHTML = _questions.questions[currentIndex]["question"];
+    document.getElementById("ans1").innerHTML = _questions.questions[currentIndex]["answer"][0]["text"];
+    document.getElementById("ans2").innerHTML = _questions.questions[currentIndex]["answer"][1]["text"];
+    document.getElementById("ans3").innerHTML = _questions.questions[currentIndex]["answer"][2]["text"];
+    document.getElementById("ans4").innerHTML = _questions.questions[currentIndex]["answer"][3]["text"];
   }
 };
 // Since it's not a final page yet, pressing next button will keep increasing index until it gets to max allowed index, which is 9
@@ -728,7 +728,7 @@ const doubleCheck = () => {
         // First sets the number from the answerElement ids, ex "3" from ans3
         let substitute = userAnswers[i].charAt(3);
         // Correlates it with the question of the same index, then the subtracts 1 from the substitute since indexes start from 0, and then checks correct value
-        let choice = _Questions.questions[i].answer[substitute - 1].correct;
+        let choice = _questions.questions[i].answer[substitute - 1].correct;
         // If it is true add 1 to score
         if (choice === true) {
           initialScore++;
@@ -798,7 +798,7 @@ const doubleCheck = () => {
   }
 };
 
-},{"./Questions":"1boA1","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y"}],"1boA1":[function(require,module,exports) {
+},{"./questions":"46Zod","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y"}],"46Zod":[function(require,module,exports) {
 var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
 _parcelHelpers.defineInteropFlag(exports);
 _parcelHelpers.export(exports, "questions", function () {

@@ -1,4 +1,4 @@
-import { questions } from "./Questions";
+import { questions } from "./questions";
 
 //Creates changeable array to store user answers
 let userAnswers = [, , , , , , , , , ,];

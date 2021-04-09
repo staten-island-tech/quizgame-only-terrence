@@ -12,7 +12,7 @@ import {
   goBack,
   goodLooks,
   doubleCheck,
-} from "./Functions";
+} from "./functions";
 
 // IIFE that runs game
 (() => {
