@@ -590,18 +590,15 @@ let currentIndex = 0;
 const allAnswers = document.querySelectorAll("div.questionbox button");
 // IIFE for select mechanism
 const selectMechanism = () => {
-  for (i = 0; i < allAnswers.length; i++) {
-    let button = allAnswers[i];
+  allAnswers.forEach(function (button, index) {
     button.addEventListener("click", function selected() {
-      // Loop through all answer elements
-      for (i = 0; i < allAnswers.length; i++) {
-        // Remove the class 'active' if it exists
-        allAnswers[i].classList.remove("active");
+      if (button.classList != "active") {
+        button.classList.add("active");
+      } else {
+        button.classList.remove("active");
       }
-      // Add 'active' classs to the element that was clicked
-      this.classList.add("active");
     });
-  }
+  });
 };
 selectMechanism();
 const goodLooks = () => {
@@ -722,13 +719,13 @@ const doubleCheck = () => {
   // First grades
   const grader = () => {
     // loops through everything in answers array
-    for (i = 0; i < userAnswers.length; i++) {
+    userAnswers.forEach((item, index) => {
       // If answers is not null, which means if user put in an answer
-      if (userAnswers[i] != null) {
+      if (item != null) {
         // First sets the number from the answerElement ids, ex "3" from ans3
-        let substitute = userAnswers[i].charAt(3);
+        let substitute = item.charAt(3);
         // Correlates it with the question of the same index, then the subtracts 1 from the substitute since indexes start from 0, and then checks correct value
-        let choice = _questions.questions[i].answer[substitute - 1].correct;
+        let choice = _questions.questions[index].answer[substitute - 1].correct;
         // If it is true add 1 to score
         if (choice === true) {
           initialScore++;
@@ -739,10 +736,10 @@ const doubleCheck = () => {
         }
               // If there is no user answer, add nothing
 } else // If there is no user answer, add nothing
-      if (userAnswers[i] === null) {
+      if (item === null) {
         initialScore;
       }
-    }
+    });
   };
   // Then goes to results page
   const resultsPage = () => {
@@ -798,7 +795,7 @@ const doubleCheck = () => {
   }
 };
 
-},{"@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y","./questions":"46Zod"}],"46Zod":[function(require,module,exports) {
+},{"./questions":"46Zod","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y"}],"46Zod":[function(require,module,exports) {
 var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
 _parcelHelpers.defineInteropFlag(exports);
 _parcelHelpers.export(exports, "questions", function () {
